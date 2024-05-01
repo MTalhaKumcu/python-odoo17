@@ -16,7 +16,7 @@ class GPTModel(models.Model):
         url = "https://api.openai.com/v1/completions"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer sk-proj-EqtjXP4stqo4E2SsMWCMT3BlbkFJrRnsObvIazbOHAG9XEKr",
+            "Authorization": "Bearer YOUR OPEN AI API", # write here your AI API 
         }
         data = {"model": "text-davinci-003", "prompt": prompt, "max_tokens": 500}
         response = requests.post(url, json=data, headers=headers)

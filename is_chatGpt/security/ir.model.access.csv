@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_gpt_model,gpt.model,model_gpt_model,base.group_user,1,1,1,1
+is_chatgpt_new.access_gpt_model,Access GPT Model,chatgpt.model,model_chatgpt,model_gpt_model,1,1,1,1
+
+
+
+

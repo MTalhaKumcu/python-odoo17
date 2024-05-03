@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
+
+
 {
-    'name': "My Odoo ChatGPT Module",
-    'summary': "This module integrates ChatGPT into Odoo 17.",
-    'description': """
-        This module integrates ChatGPT into Odoo 17, allowing users to generate text using GPT-3.5 API.
-    """,
-    'author': "Mehmet Talha Kumcu",
-    'website': "https://www.google.com",
-    'category': 'UncSategorized',
-    'version': '0.1',
-    'depends': ['base'],
+    'name': 'Odoo mtkcloud ChatGPT module',
+    'version': '0.0.1',
+    'license': 'AGPL-3',
+    'summary': 'Odoo ChatGPT Integration Module',
+    'description': 'Allows the application to leverage the capabilities of the GPT language model to generate human-like responses, providing a more natural and intuitive user experience',
+    'author': 'Mehmet Talha Kumcu',
+    'website': 'https://www.google.com',
+    'depends': ['base',],
+    'category': 'Uncategorized',
     'data': [
         'security/ir.model.access.csv',
-        'views/gpt_views.xml',
+        'views/chatGPTview.xml',
     ],
-   # 'demo': [],
+    'external_dependencies': {'python': ['openai']},
     'installable': True,
     'application': True,
     'auto_install': False,
+
 }

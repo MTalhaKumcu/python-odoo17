@@ -1,5 +1,7 @@
 create environment to work python => & 'C:\Program Files\Odoo17\python\python.exe' -m venv openai-env
 
+install openai env => & 'C:\Program Files\Odoo17\python' pip install openai
+
 openai-env\Scripts\activate =>  & 'C:\Program Files\Odoo17\server\openai-env\Scripts\activate'   
 
 upgrade for pip => & 'C:\Program Files\Odoo17\python\python.exe' -m pip install --upgrade pip

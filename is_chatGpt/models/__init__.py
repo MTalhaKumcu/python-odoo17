@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import gpt_model
+from . import chatgpt_model

@@ -1,20 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <!-- ChatGPT Views -->
-        <record id="view_gpt_form" model="ir.ui.view">
-            <field name="name">chatGPTview.form</field>
-            <field name="model">chatgpt.model</field>
-            <field name="arch" type="xml">
-                <form string="ChatGPT Form">
-                
-                        <field name="user_input" placeholder="Type your message here..."/>
-                        <button name="send_user_input" string="Send" type="object" class="btn-primary"/>
-                        <field name="output_message" readonly="1"/>
-                  
-                </form>
-            </field>
-        </record>
-    </data>
-</odoo>
+	<data>
+		<record id="view_chatgpt_model_form" model="ir.ui.view">
+			<field name="name">chatgpt.model.form</field>
+			<field name="model">chatgpt.model</field>
+			<field name="arch" type="xml">
+				<form string="ChatGPT Module">
+					<sheet>
+						<group>
+							<field name="user_input" />
+						</group>
+						<group>
+							<button name="button_send_input" string="Send Input" type="object" class="oe_highlight" />
+							<button name="button_clear" string="Clear" type="object" class="oe_highlight" />
 
+							
+						</group>
+						<notebook>
+							<page string="Output">
+								<field name="output" readonly="1" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>	
+		<record id="chatgpt_model_action" model="ir.actions.act_window">
+      		<field name="name">ChatGPT Actions</field>
+      		<field name="type">ir.actions.act_window</field>
+      		<field name="res_model">chatgpt.model</field>
+      		<field name="view_mode">form</field>
+      		<field name="view_id" ref="view_chatgpt_model_form" />
+      		<field name="target">current</field> 
+		</record>
+	<menuitem id="menu_chatgpt" name="ChatGPT Messages" action="chatgpt_model_action"/>
+     
+  	</data>
+</odoo>

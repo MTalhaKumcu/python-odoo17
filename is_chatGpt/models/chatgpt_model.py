@@ -1,5 +1,6 @@
 # chatgpt_modul.py
 
+import json
 from odoo import models, fields, api
 import requests
 
@@ -18,23 +19,43 @@ class ChatGPTModel(models.Model):
         # Örnek olarak:
         openai_endpoint = 'https://api.openai.com/v1/completions'
         headers = {
-            'Authorization': 'Bearer OPENAI KEY',
+            'Authorization': 'Bearer YOUR OPEN AI API',
             'Content-Type': 'application/json'
         }
         data = {
-            'model': 'text-davinci-003',  # Gerekli modeli seçiniz
+            'model': 'gpt-3.5-turbo',  # Gerekli modeli seçiniz
             'prompt': input_text,
-            'max_tokens': 50  # İsteğe bağlı, yanıtın maksimum uzunluğunu belirtir
+            'max_tokens': 500  # İsteğe bağlı, yanıtın maksimum uzunluğunu belirtir
         }
-        response = requests.post(openai_endpoint, headers=headers, json=data)
-        return response.json().get('choices')[0].get('text')
+            
+        try:
+            
+            response = requests.post(openai_endpoint, headers=headers, json=data)
+            response.raise_for_status()  # Hata durumunda hata yükselt
+            response_json = response.json()  # JSON içeriğini al
+            #return response_json
+            choices = response_json.get('choices')
 
+            if choices and isinstance(choices, list) and choices[0].get('text'):
+                return choices[0].get('text')  # Yanıtı döndür
+            else:
+                print("Beklenmeyen yant format:", response.text)
+                return None
+        except requests.exceptions.RequestException as e:
+            print("İstek hatas:", e)
+            return str(e)
+        
     def get_output(self):
         for record in self:
             if record.user_input:
                 output_text = self.send_request_to_openai(record.user_input)
-                record.output = output_text
-
+                #record.output = output_text
+                
+                if output_text is not None:
+                    record.output = output_text
+                else:
+                    record.output = "something wrong"
+    
     def clear_fields(self):
         self.user_input = ''
         self.output = ''

@@ -13,34 +13,30 @@ class ChatGPTModel(models.Model):
 
     @api.model
     def send_request_to_openai(self, input_text):
-        # Burada OpenAI API'sine istek göndermek için gerekli kodları yazmalısınız
-        # API anahtarınızı, API'ye istek göndermek için kullanacağınız endpoint'i ve diğer gerekli bilgileri burada tanımlayabilirsiniz.
-        # İstek gönderme işlemi için Python'un requests kütüphanesini kullanabilirsiniz
-        # Örnek olarak:
-        openai_endpoint = 'https://api.openai.com/v1/completions'
+        # Here you should write the code to send a request to the OpenAI API
+        # Here you can define your API key, the endpoint you will use to send requests to the API, and other necessary information.
+        # You can use Python's requests library for sending requests
+        3
+        openai_endpoint = 'https://api.openai.com/v1/chat/completions'
         headers = {
-            'Authorization': 'Bearer YOUR OPEN AI API',
+            'Authorization': 'Bearer YOUR API',
             'Content-Type': 'application/json'
         }
         data = {
-            'model': 'gpt-3.5-turbo',  # Gerekli modeli seçiniz
-            'prompt': input_text,
-            'max_tokens': 500  # İsteğe bağlı, yanıtın maksimum uzunluğunu belirtir
+            'model': 'gpt-3.5-turbo',  # Select the required model
+            'messages': [{'role': 'user', 'content': input_text}],
+            'max_tokens': 500  # Optional, specifies the maximum length of the response
         }
             
         try:
             
             response = requests.post(openai_endpoint, headers=headers, json=data)
-            response.raise_for_status()  # Hata durumunda hata yükselt
-            response_json = response.json()  # JSON içeriğini al
-            #return response_json
-            choices = response_json.get('choices')
+            response.raise_for_status()  # Raise error in case of error
+            response_json = response.json()  # Get JSON content
+            output_text = response_json['choices'][0]['message']['content'] # Convert Json to Text
 
-            if choices and isinstance(choices, list) and choices[0].get('text'):
-                return choices[0].get('text')  # Yanıtı döndür
-            else:
-                print("Beklenmeyen yant format:", response.text)
-                return None
+            return output_text
+           
         except requests.exceptions.RequestException as e:
             print("İstek hatas:", e)
             return str(e)
@@ -49,8 +45,7 @@ class ChatGPTModel(models.Model):
         for record in self:
             if record.user_input:
                 output_text = self.send_request_to_openai(record.user_input)
-                #record.output = output_text
-                
+                                
                 if output_text is not None:
                     record.output = output_text
                 else:

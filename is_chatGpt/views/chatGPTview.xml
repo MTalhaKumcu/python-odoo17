@@ -13,8 +13,6 @@
 						<group>
 							<button name="button_send_input" string="Send Input" type="object" class="oe_highlight" />
 							<button name="button_clear" string="Clear" type="object" class="oe_highlight" />
-
-							
 						</group>
 						<notebook>
 							<page string="Output">
